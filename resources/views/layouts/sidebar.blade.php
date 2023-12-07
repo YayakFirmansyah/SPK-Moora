@@ -32,7 +32,7 @@
                     <ul class="nav nav-treeview">
                         <ul style="list-style: none;">
                             <li class="nav-item">
-                                <a href="{{ url('profile') }}" class="nav-link">
+                                <a href="{{ url('kriteriabobot') }}" class="nav-link">
                                     <i class="nav-icon fas fa-balance-scale-right"></i>
                                     <p>
                                         Kriteria & Bobot
@@ -40,7 +40,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('pengalaman-kuliah') }}" class="nav-link">
+                                <a href="{{ url('alternatif') }}" class="nav-link">
                                     <i class="nav-icon fas fa-list-ol"></i>
                                     <p>
                                         Alternatif & Value
@@ -61,7 +61,7 @@
                     <ul class="nav nav-treeview">
                         <ul style="list-style: none;">
                             <li class="nav-item">
-                                <a href="{{ url('kendaraan') }}" class="nav-link">
+                                <a href="{{ url('decisionmatrix') }}" class="nav-link">
                                     <i class="nav-icon fas fa-table"></i>
                                     <p>
                                         Matriks Keputusan
@@ -69,7 +69,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('hobi') }}" class="nav-link">
+                                <a href="{{ url('normalization') }}" class="nav-link">
                                     <i class="nav-icon fas fa-chart-area"></i>
                                     <p>
                                         Perhitungan MOORA
@@ -77,7 +77,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('keluarga') }}" class="nav-link">
+                                <a href="{{ url('ranking') }}" class="nav-link">
                                     <i class="nav-icon fas fa-sort-amount-down"></i>
                                     <p>
                                         Ranking

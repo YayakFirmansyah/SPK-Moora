@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AlternatifController;
+use App\Http\Controllers\DecisionMatrixController;
+use App\Http\Controllers\KriteriabobotController;
+use App\Http\Controllers\NormalisasiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +24,12 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+
+Route::resources([
+    'alternatif' => AlternatifController::class,
+    'kriteriabobot' => KriteriabobotController::class,
+    'decisionmatrix' => DecisionMatrixController::class,
+
+]);
+Route::get('normalization', [NormalisasiController::class, 'index']);
+Route::get('/ranking', [NormalisasiController::class, 'showRanking']);

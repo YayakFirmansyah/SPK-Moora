@@ -37,7 +37,7 @@
                   <div class="info-box mb-3">
                     <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
                     <div class="info-box-content">
-                      <span class="info-box-text">Profile</span>
+                      <span class="info-box-text">Tentang Moora</span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -54,7 +54,7 @@
                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-book"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Pengalaman Kuliah</span>
+                      <span class="info-box-text">Metode Moora</span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
