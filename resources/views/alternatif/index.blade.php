@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-<div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -23,33 +22,33 @@
                     <div class="card">
                         <div class="card-body">
                             @if ($message = Session::get('success'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ $message }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ $message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                             @endif
                             <div>
                                 <a href="{{route('alternatif.create')}}" class='btn btn-outline-success'>
                                     <span class='fa fa-plus'></span> Tambah Alternatif
                                 </a>
                             </div>
-                           
+
                             <br>
                             <table id="mytable" class="display nowrap table table-striped table-bordered">
                                 <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        @foreach ($kriteriabobot as $c)
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    @foreach ($kriteriabobot as $c)
                                         <th>{{$c->nama}}</th>
-                                        @endforeach
-                                        <th>Aksi</th>
-                                    </tr>
+                                    @endforeach
+                                    <th>Aksi</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($alternatif as $a)
+                                @foreach ($alternatif as $a)
                                     <tr>
                                         <td>{{ ++$i }}</td>
                                         <td>{{ $a->nama}}</td>
@@ -64,12 +63,14 @@
                                             <form action="{{ route('alternatif.destroy',$a->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <span data-toggle="tooltip" data-placement="bottom" title="Edit Data">
+                                                <span data-toggle="tooltip" data-placement="bottom"
+                                                      title="Edit Data">
                                                     <a href="{{ route('alternatif.edit',$a->id) }}"
-                                                        class="btn btn-primary"><span class="fa fa-edit"></span>
+                                                       class="btn btn-primary"><span class="fa fa-edit"></span>
                                                     </a>
                                                 </span>
-                                                <span data-toggle="tooltip" data-placement="bottom" title="Hapus Data">
+                                                <span data-toggle="tooltip" data-placement="bottom"
+                                                      title="Hapus Data">
                                                     <button type="submit" class="btn btn-danger">
                                                         <span class="fa fa-trash-alt"></span>
                                                     </button>
@@ -77,7 +78,7 @@
                                             </form>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -86,6 +87,5 @@
             </div>
         </div>
     </div>
-</div>
 @endsection
 

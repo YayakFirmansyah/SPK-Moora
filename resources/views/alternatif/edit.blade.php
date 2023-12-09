@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-<div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -38,15 +37,18 @@
                                 <div class="form-group">
                                     <label for="nama">Nama</label>
                                     <div class="input-group">
-                                        <input id="nama" type="text" class="form-control" placeholder="Contoh: C1" name="nama" value="{{ $alternatif->nama }}" required>
+                                        <input id="nama" type="text" class="form-control" placeholder="Contoh: C1"
+                                               name="nama" value="{{ $alternatif->nama }}" required>
                                     </div>
                                 </div>
                                 @foreach ($kriteriabobot as $key => $k)
                                     <div class="form-group">
                                         <label for="score[{{ $k->id }}]">{{ $k->nama }} - {{ $k->description }}</label>
-                                        <select class="form-control" id="score[{{ $k->id }}]" name="score[{{ $k->id }}]">
+                                        <select class="form-control" id="score[{{ $k->id }}]"
+                                                name="score[{{ $k->id }}]">
                                             @for ($i = 1; $i <= 5; $i++)
-                                                <option value="{{ $i }}" {{ isset($alternatifskor[$key]) && $i == $alternatifskor[$key]->score ? 'selected' : '' }}>{{ $i }}</option>
+                                                <option
+                                                    value="{{ $i }}" {{ isset($alternatifskor[$key]) && $i == $alternatifskor[$key]->score ? 'selected' : '' }}>{{ $i }}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -60,5 +62,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection

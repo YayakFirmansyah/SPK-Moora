@@ -6,7 +6,6 @@
 
 
 @section('content')
-<div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -25,27 +24,27 @@
                         <div class="card-body">
                             <table id="mytable" class="display nowrap table table-striped table-bordered">
                                 <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        @foreach ($kriteriabobot as $c)
+                                <tr>
+                                    <th>No</th>
+                                    @foreach ($kriteriabobot as $c)
                                         <th>{{$c->nama}}</th>
-                                        @endforeach
-                                    </tr>
+                                    @endforeach
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($alternatif as $a)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            @foreach ($kriteriabobot as $k)
-                                                <td>
-                                                    @php
-                                                        $s = $score->where('alternatif_id', $a->id)->where('kriteriabobot_id', $k->id)->first();
-                                                    @endphp
-                                                    {{ $s ? $s->score : '' }}
-                                                </td>
-                                            @endforeach
-                                        </tr>
-                                    @endforeach
+                                @foreach ($alternatif as $a)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        @foreach ($kriteriabobot as $k)
+                                            <td>
+                                                @php
+                                                    $s = $score->where('alternatif_id', $a->id)->where('kriteriabobot_id', $k->id)->first();
+                                                @endphp
+                                                {{ $s ? $s->score : '' }}
+                                            </td>
+                                        @endforeach
+                                    </tr>
+                                @endforeach
 
                                 </tbody>
                             </table>
@@ -55,7 +54,6 @@
             </div>
         </div>
     </div>
-</div>
 @endsection
 
 @section('script')

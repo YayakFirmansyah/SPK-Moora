@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-<div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -23,14 +22,14 @@
                     <div class="card">
                         <div class="card-body">
                             @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <strong>Ups!</strong> Ada beberapa masalah dengan masukan Anda.<br><br>
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                                <div class="alert alert-danger">
+                                    <strong>Ups!</strong> Ada beberapa masalah dengan masukan Anda.<br><br>
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             @endif
                             <form action="{{route('kriteriabobot.update', $kriteriabobot->id)}}" method="POST">
                                 @csrf
@@ -53,7 +52,7 @@
                                         @endif
                                     </select>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="bobot">Bobot</label>
                                     <div class="input-group">
@@ -75,5 +74,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection
