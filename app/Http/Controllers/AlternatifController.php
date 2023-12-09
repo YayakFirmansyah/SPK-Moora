@@ -121,10 +121,10 @@ class AlternatifController extends Controller
             'score' => 'required|array',
             'score.*' => 'required|numeric',
         ]);
-    
+
         // Menyimpan Skor
         $kriteribobot = KriteriaBobotModel::get();
-    
+
         foreach ($kriteribobot as $k) {
             $score = AlternatifSkor::updateOrCreate(
                 [
@@ -136,10 +136,17 @@ class AlternatifController extends Controller
                 ]
             );
         }
-    
+
+        // Update alternatif->nama
+        $alternatif->update(
+            [
+                'nama' => $request->nama
+            ]
+        );
+
         return redirect()->route('alternatif.index')->with('success', 'Alternatif berhasil diperbarui');
     }
-    
+
 
 
 
