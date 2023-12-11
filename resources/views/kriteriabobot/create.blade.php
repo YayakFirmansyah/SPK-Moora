@@ -49,7 +49,7 @@
                                 <div class="form-group">
                                     <label for="bobot">Bobot</label>
                                     <div class="input-group">
-                                        <input id="bobot" type="text" class="form-control" placeholder="Contoh: 0.15" name="bobot" required>
+                                        <input id="bobot" type="number" class="form-control" placeholder="Contoh: 0.15" name="bobot" required>
                                     </div>
                                 </div>
                                 <div class="form-group">

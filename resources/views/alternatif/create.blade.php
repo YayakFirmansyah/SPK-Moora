@@ -31,18 +31,26 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form action="{{route('alternatif.store')}}" method="POST">
+                            <form action="{{ route('alternatif.store') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
                                     <label for="nama">Nama</label>
                                     <div class="input-group">
-                                        <input id="nama" type="text" class="form-control" placeholder="Contoh: C1"
-                                               name="nama" required>
+                                        <input id="nama" type="text" class="form-control" placeholder="Contoh: A1"
+                                            name="nama" required>
                                     </div>
                                 </div>
-
+                                @foreach ($kriteriabobot as $key => $k)
+                                    <div class="form-group">
+                                        <label for="score[{{ $k->id }}]">{{ $k->nama }} -
+                                            {{ $k->description }}</label>
+                                        <input type="number" class="form-control" placeholder="Contoh: 0.15" id="score[{{ $k->id }}]"
+                                            name="score[{{ $k->id }}]"
+                                            value="{{ isset($alternatifskor[$key]) ? $alternatifskor[$key]->score : '' }}">
+                                    </div>
+                                @endforeach
                                 <button type="submit" class="btn btn-primary">Kirim</button>
-                                <a href="{{ route('kriteriabobot.index') }}" class="btn btn-secondary">Kembali</a>
+                                <a href="{{ route('alternatif.index') }}" class="btn btn-secondary">Kembali</a>
                             </form>
                         </div>
                     </div>

@@ -38,19 +38,16 @@
                                     <label for="nama">Nama</label>
                                     <div class="input-group">
                                         <input id="nama" type="text" class="form-control" placeholder="Contoh: C1"
-                                               name="nama" value="{{ $alternatif->nama }}" required>
+                                            name="nama" value="{{ $alternatif->nama }}" required>
                                     </div>
                                 </div>
                                 @foreach ($kriteriabobot as $key => $k)
                                     <div class="form-group">
-                                        <label for="score[{{ $k->id }}]">{{ $k->nama }} - {{ $k->description }}</label>
-                                        <select class="form-control" id="score[{{ $k->id }}]"
-                                                name="score[{{ $k->id }}]">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                <option
-                                                    value="{{ $i }}" {{ isset($alternatifskor[$key]) && $i == $alternatifskor[$key]->score ? 'selected' : '' }}>{{ $i }}</option>
-                                            @endfor
-                                        </select>
+                                        <label for="score[{{ $k->id }}]">{{ $k->nama }} -
+                                            {{ $k->description }}</label>
+                                        <input type="number" class="form-control" placeholder="Contoh: 0.15"
+                                            id="score[{{ $k->id }}]" name="score[{{ $k->id }}]"
+                                            value="{{ isset($alternatifskor[$key]) ? $alternatifskor[$key]->score : '' }}">
                                     </div>
                                 @endforeach
                                 <button type="submit" class="btn btn-primary">Kirim</button>

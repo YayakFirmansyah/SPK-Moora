@@ -31,19 +31,20 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form action="{{route('kriteriabobot.update', $kriteriabobot->id)}}" method="POST">
+                            <form action="{{ route('kriteriabobot.update', $kriteriabobot->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
                                     <label for="nama">Kode</label>
                                     <div class="input-group">
-                                        <input id="nama" type="text" class="form-control" placeholder="Contoh: C1" name="nama" value="{{ $kriteriabobot->nama }}" required>
+                                        <input id="nama" type="text" class="form-control" placeholder="Contoh: C1"
+                                            name="nama" value="{{ $kriteriabobot->nama }}" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="tipe">Tipe</label>
                                     <select class="form-control" id="tipe" name="tipe">
-                                        @if ($kriteriabobot->tipe == "benefit")
+                                        @if ($kriteriabobot->tipe == 'benefit')
                                             <option value="benefit" selected='selected'>Benefit</option>
                                             <option value="cost">Cost</option>
                                         @else
@@ -56,13 +57,16 @@
                                 <div class="form-group">
                                     <label for="bobot">Bobot</label>
                                     <div class="input-group">
-                                        <input id="bobot" type="text" class="form-control" placeholder="Contoh: 0.15" name="bobot" value="{{ $kriteriabobot->bobot }}" required>
+                                        <input id="bobot" type="number" class="form-control" placeholder="Contoh: 0.15"
+                                            name="bobot" value="{{ $kriteriabobot->bobot }}" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Deskripsi</label>
                                     <div class="input-group">
-                                        <input id="description" type="text" class="form-control" placeholder="Contoh: Absensi" name="description" value="{{ $kriteriabobot->description }}" required>
+                                        <input id="description" type="text" class="form-control"
+                                            placeholder="Contoh: Absensi" name="description"
+                                            value="{{ $kriteriabobot->description }}" required>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Kirim</button>
