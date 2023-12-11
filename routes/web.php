@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlternatifController;
 use App\Http\Controllers\DecisionMatrixController;
+use App\Http\Controllers\InputExcel;
 use App\Http\Controllers\KriteriabobotController;
 use App\Http\Controllers\NormalisasiController;
 use Illuminate\Support\Facades\Route;
@@ -33,3 +34,5 @@ Route::resources([
 ]);
 Route::get('normalization', [NormalisasiController::class, 'index']);
 Route::get('/ranking', [NormalisasiController::class, 'showRanking']);
+
+Route::post('/uploadExcelKriteria', [InputExcel::class, 'uploadExcelKriteria']);
