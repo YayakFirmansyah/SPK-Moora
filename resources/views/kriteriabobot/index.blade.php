@@ -24,11 +24,13 @@
                     <button class="btn btn-primary">Download Template Excel</button>
                 </div>
                 <div class="card-body">
-                    <form id="excelForm" method="post" action="{{ url('/uploadExcelKriteria') }}" class="d-flex justify-content-between align-items-center" enctype="multipart/form-data">
+                    <form id="excelForm" method="post" action="{{ url('/uploadExcelKriteria') }}"
+                        class="d-flex justify-content-between align-items-center" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="excelFile">Select Excel File:</label>
-                            <input type="file" class="form-control-file" id="excelFile" name="excel_file" accept=".xlsx, .xls, .csv">
+                            <input type="file" class="form-control-file" id="excelFile" name="excel_file"
+                                accept=".xlsx, .xls, .csv">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -44,14 +46,6 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            @if ($message = Session::get('success'))
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    {{ $message }}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            @endif
                             <div>
                                 <a href="{{ route('kriteriabobot.create') }}" class='btn btn-outline-success'>
                                     <span class='fa fa-plus'></span> Tambah Kriteria
@@ -61,37 +55,39 @@
                             <br>
                             <table id="mytable" class="display nowrap table table-striped table-bordered">
                                 <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Kode</th>
-                                    <th>Tipe</th>
-                                    <th>Bobot</th>
-                                    <th>Deskripsi</th>
-                                    <th>Aksi</th>
-                                </tr>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Kode</th>
+                                        <th>Tipe</th>
+                                        <th>Bobot</th>
+                                        <th>Deskripsi</th>
+                                        <th>Aksi</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($kriteriabobot as $c)
-                                    <tr>
-                                        <td>{{ ++$i }}</td>
-                                        <td>{{ $c->nama }}</td>
-                                        <td>{{ $c->tipe }}</td>
-                                        <td>{{ $c->bobot }}</td>
-                                        <td>{{ $c->description }}</td>
-                                        <td>
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Edit Data">
-                                                <a href="{{ route('kriteriabobot.edit', $c->id) }}"
-                                                   class="btn btn-primary"><span class="fa fa-edit"></span>
-                                                </a>
-                                            </span>
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Hapus Data">
-                                                <button type="button" onclick="deleteKriteria({{ $c }})" data-toggle="modal" data-target="#kriteriaDeleteModal" class="btn btn-danger">
-                                                    <span class="fa fa-trash-alt"></span>
-                                                </button>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                    @foreach ($kriteriabobot as $c)
+                                        <tr>
+                                            <td>{{ ++$i }}</td>
+                                            <td>{{ $c->nama }}</td>
+                                            <td>{{ $c->tipe }}</td>
+                                            <td>{{ $c->bobot }}</td>
+                                            <td>{{ $c->description }}</td>
+                                            <td>
+                                                <span data-toggle="tooltip" data-placement="bottom" title="Edit Data">
+                                                    <a href="{{ route('kriteriabobot.edit', $c->id) }}"
+                                                        class="btn btn-primary"><span class="fa fa-edit"></span>
+                                                    </a>
+                                                </span>
+                                                <span data-toggle="tooltip" data-placement="bottom" title="Hapus Data">
+                                                    <button type="button" onclick="deleteKriteria({{ $c }})"
+                                                        data-toggle="modal" data-target="#kriteriaDeleteModal"
+                                                        class="btn btn-danger">
+                                                        <span class="fa fa-trash-alt"></span>
+                                                    </button>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -102,7 +98,8 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="kriteriaDeleteModal" tabindex="-1" aria-labelledby="kriteriaDeleteModal" aria-hidden="true">
+    <div class="modal fade" id="kriteriaDeleteModal" tabindex="-1" aria-labelledby="kriteriaDeleteModal"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -126,11 +123,21 @@
 @endsection
 
 @push('custom_js')
+    @if ($message = Session::get('success'))
+        <script>
+            toastr.success('{{ $message }}')
+        </script>
+    @endif
+    @if ($message = Session::get('error'))
+        <script>
+            toastr.success('{{ $message }}')
+        </script>
+    @endif
     <script>
         /*
-        * Update the [kriteriaDeleteModal] based on the value of [kriteriaObject]
-        * - Parameter [kriteriaObject] at least should have properties of [id] and [nama]
-        */
+         * Update the [kriteriaDeleteModal] based on the value of [kriteriaObject]
+         * - Parameter [kriteriaObject] at least should have properties of [id] and [nama]
+         */
         function deleteKriteria(kriteriaObject) {
             $('#kriteriaModalBody').text(`Apakah anda yakin ingin menghapus kriteria ${kriteriaObject.nama}?`)
             $('#kriteriaModalForm').attr('action', `{{ route('kriteriabobot.destroy', '') }}/${kriteriaObject.id}`)
