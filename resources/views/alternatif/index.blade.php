@@ -17,6 +17,31 @@
     </div>
     <div class="content">
         <div class="container-fluid">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Tambah Alternatif Via Excel</h5>
+                </div>
+                <div class="card-body">
+                    <form id="excelForm" method="post" action="{{ url('/uploadExcelAlternatif') }}"
+                        class="d-flex justify-content-between align-items-center" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="excelFile">Select Excel File:</label>
+                            <input type="file" class="form-control-file" id="excelFile" name="excel_file"
+                                accept=".xlsx, .xls, .csv">
+                        </div>
+                        <div>
+                            <a class="btn btn-primary" href="{{ url('/downloadExcelTemplateAlternatif') }}">Download Template
+                                Excel</a>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">

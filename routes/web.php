@@ -37,3 +37,6 @@ Route::get('/ranking', [NormalisasiController::class, 'showRanking']);
 
 Route::post('/uploadExcelKriteria', [InputExcel::class, 'uploadExcelKriteria']);
 Route::get('/downloadExcelTemplateKriteria', [InputExcel::class, 'downloadExcelTemplateKriteria']);
+
+Route::get('/downloadExcelTemplateAlternatif', [InputExcel::class, 'downloadExcelTemplateAlternatif']);
+Route::post('/uploadExcelAlternatif', [InputExcel::class, 'uploadExcelAlternatif']);
