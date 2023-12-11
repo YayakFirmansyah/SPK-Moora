@@ -11,9 +11,13 @@ class InputExcel extends Controller
 {
     public function uploadExcelKriteria(Request $request)
     {
-        $request->validate([
-            'excel_file' => 'required|mimes:xlsx,xls', // Make sure the uploaded file is an Excel file
-        ]);
+        try {
+            $request->validate([
+                'excel_file' => 'required|mimes:xlsx,xls', // Make sure the uploaded file is an Excel file
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
 
         $file = $request->file('excel_file');
 
@@ -25,7 +29,6 @@ class InputExcel extends Controller
         array_shift($data);
         array_shift($data);
 
-        // Assuming the data has a header row and starts from the second row
         try {
             foreach ($data as $row) {
                 KriteriaBobotModel::create([
@@ -36,9 +39,14 @@ class InputExcel extends Controller
                 ]);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Data Gagal Diupload');
+            return redirect()->back()->with('error', 'Data Gagal Diupload, Silahkan Cek Apakah Ada Duplikasi Data');
         }
 
-        return redirect('/kriteriabobot')->with('sukses', 'Data Berhasil Diupload');
+        return redirect('/kriteriabobot')->with('success', 'Data Berhasil Diupload');
+    }
+
+    public function downloadExcelTemplateKriteria() {
+        $template = public_path('excel\template_kriteria.xlsx');
+        return response()->download($template, 'template_kriteria.xlsx');
     }
 }

@@ -19,9 +19,8 @@
     <div class="content">
         <div class="container-fluid">
             <div class="card">
-                <div class="card-header d-flex justify-content-between">
+                <div class="card-header">
                     <h5>Tambah Kriteria Via Excel</h5>
-                    <button class="btn btn-primary">Download Template Excel</button>
                 </div>
                 <div class="card-body">
                     <form id="excelForm" method="post" action="{{ url('/uploadExcelKriteria') }}"
@@ -32,8 +31,10 @@
                             <input type="file" class="form-control-file" id="excelFile" name="excel_file"
                                 accept=".xlsx, .xls, .csv">
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div>
+                            <a class="btn btn-primary" href="{{ url('/downloadExcelTemplateKriteria') }}">Download Template Excel</a>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -130,7 +131,7 @@
     @endif
     @if ($message = Session::get('error'))
         <script>
-            toastr.success('{{ $message }}')
+            toastr.error('{{ $message }}')
         </script>
     @endif
     <script>
