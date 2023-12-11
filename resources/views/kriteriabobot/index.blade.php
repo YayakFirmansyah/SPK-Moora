@@ -56,23 +56,16 @@
                                         <td>{{ $c->bobot }}</td>
                                         <td>{{ $c->description }}</td>
                                         <td>
-                                            <form action="{{ route('kriteriabobot.destroy', $c->id) }}"
-                                                  method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <span data-toggle="tooltip" data-placement="bottom"
-                                                      title="Edit Data">
-                                                            <a href="{{ route('kriteriabobot.edit', $c->id) }}"
-                                                               class="btn btn-primary"><span class="fa fa-edit"></span>
-                                                            </a>
-                                                        </span>
-                                                <span data-toggle="tooltip" data-placement="bottom"
-                                                      title="Hapus Data">
-                                                            <button type="submit" class="btn btn-danger">
-                                                                <span class="fa fa-trash-alt"></span>
-                                                            </button>
-                                                        </span>
-                                            </form>
+                                            <span data-toggle="tooltip" data-placement="bottom" title="Edit Data">
+                                                <a href="{{ route('kriteriabobot.edit', $c->id) }}"
+                                                   class="btn btn-primary"><span class="fa fa-edit"></span>
+                                                </a>
+                                            </span>
+                                            <span data-toggle="tooltip" data-placement="bottom" title="Hapus Data">
+                                                <button type="button" onclick="deleteKriteria({{ $c }})" data-toggle="modal" data-target="#kriteriaDeleteModal" class="btn btn-danger">
+                                                    <span class="fa fa-trash-alt"></span>
+                                                </button>
+                                            </span>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -84,4 +77,40 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="kriteriaDeleteModal" tabindex="-1" aria-labelledby="kriteriaDeleteModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Kriteria</h1>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body" id="kriteriaModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <form method="POST" id="kriteriaModalForm">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-primary">Hapus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('custom_js')
+    <script>
+        /*
+        * Update the [kriteriaDeleteModal] based on the value of [kriteriaObject]
+        * - Parameter [kriteriaObject] at least should have properties of [id] and [nama]
+        */
+        function deleteKriteria(kriteriaObject) {
+            $('#kriteriaModalBody').text(`Apakah anda yakin ingin menghapus kriteria ${kriteriaObject.nama}?`)
+            $('#kriteriaModalForm').attr('action', `{{ route('kriteriabobot.destroy', '') }}/${kriteriaObject.id}`)
+        }
+    </script>
+@endpush

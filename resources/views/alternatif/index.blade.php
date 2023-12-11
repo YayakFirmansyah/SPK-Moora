@@ -60,22 +60,18 @@
                                             <td>{{ $s ? $s->score : '' }}</td>
                                         @endforeach
                                         <td>
-                                            <form action="{{ route('alternatif.destroy',$a->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <span data-toggle="tooltip" data-placement="bottom"
-                                                      title="Edit Data">
-                                                    <a href="{{ route('alternatif.edit',$a->id) }}"
-                                                       class="btn btn-primary"><span class="fa fa-edit"></span>
-                                                    </a>
-                                                </span>
-                                                <span data-toggle="tooltip" data-placement="bottom"
-                                                      title="Hapus Data">
-                                                    <button type="submit" class="btn btn-danger">
-                                                        <span class="fa fa-trash-alt"></span>
-                                                    </button>
-                                                </span>
-                                            </form>
+                                            <span data-toggle="tooltip" data-placement="bottom"
+                                                  title="Edit Data">
+                                                <a href="{{ route('alternatif.edit',$a->id) }}"
+                                                   class="btn btn-primary"><span class="fa fa-edit"></span>
+                                                </a>
+                                            </span>
+                                            <span data-toggle="tooltip" data-placement="bottom"
+                                                  title="Hapus Data">
+                                                <button type="button" onclick="deleteAlternatif({{ $a }})" data-toggle="modal" data-target="#alternatifDeleteModal" class="btn btn-danger">
+                                                    <span class="fa fa-trash-alt"></span>
+                                                </button>
+                                            </span>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -87,5 +83,40 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="alternatifDeleteModal" tabindex="-1" aria-labelledby="alternatifDeleteModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus alternatif</h1>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body" id="alternatifModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <form method="POST" id="alternatifModalForm">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-primary">Hapus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
+@push('custom_js')
+    <script>
+        /*
+        * Update the [alternatifDeleteModal] based on the value of [alternatifObject]
+        * - Parameter [alternatifObject] at least should have properties of [id] and [nama]
+        */
+        function deleteAlternatif(alternatifObject) {
+            $('#alternatifModalBody').text(`Apakah anda yakin ingin menghapus alternatif ${alternatifObject.nama}?`)
+            $('#alternatifModalForm').attr('action', `{{ route('alternatif.destroy', '') }}/${alternatifObject.id}`)
+        }
+    </script>
+@endpush
