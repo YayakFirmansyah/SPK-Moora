@@ -15,6 +15,29 @@
             </div>
         </div>
     </div>
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h5>Tambah Kriteria Via Excel</h5>
+                    <button class="btn btn-primary">Download Template Excel</button>
+                </div>
+                <div class="card-body">
+                    <form id="excelForm" method="post" action="{{ url('/uploadExcelKriteria') }}" class="d-flex justify-content-between align-items-center" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="excelFile">Select Excel File:</label>
+                            <input type="file" class="form-control-file" id="excelFile" name="excel_file" accept=".xlsx, .xls, .csv">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="content">
         <div class="container-fluid">
             <div class="row">
