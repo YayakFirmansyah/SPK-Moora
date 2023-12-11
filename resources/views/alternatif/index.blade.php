@@ -31,7 +31,8 @@
                                 accept=".xlsx, .xls, .csv">
                         </div>
                         <div>
-                            <a class="btn btn-primary" href="{{ url('/downloadExcelTemplateAlternatif') }}">Download Template
+                            <a class="btn btn-primary" href="{{ url('/downloadExcelTemplateAlternatif') }}">Download
+                                Template
                                 Excel</a>
                             <button type="submit" class="btn btn-success">Submit</button>
                         </div>
@@ -105,19 +106,21 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="alternatifDeleteModal" tabindex="-1" aria-labelledby="alternatifDeleteModal"
+    <div class="modal fade" id="alternatifDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus alternatif</h1>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Alternatif</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body" id="alternatifModalBody">
-
+                    <!-- Modal body content here -->
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
                     <form method="POST" id="alternatifModalForm">
                         @csrf
                         @method('DELETE')
