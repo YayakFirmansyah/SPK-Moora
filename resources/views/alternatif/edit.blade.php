@@ -45,7 +45,7 @@
                                     <div class="form-group">
                                         <label for="score[{{ $k->id }}]">{{ $k->nama }} -
                                             {{ $k->description }}</label>
-                                        <input type="number" class="form-control" placeholder="Contoh: 0.15"
+                                        <input type="number" class="form-control" step="any" placeholder="Contoh: 0.15"
                                             id="score[{{ $k->id }}]" name="score[{{ $k->id }}]"
                                             value="{{ isset($alternatifskor[$key]) ? $alternatifskor[$key]->score : '' }}">
                                     </div>

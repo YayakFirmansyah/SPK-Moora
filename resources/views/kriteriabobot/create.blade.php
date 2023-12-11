@@ -31,12 +31,13 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form action="{{route('kriteriabobot.store')}}" method="POST">
+                            <form action="{{ route('kriteriabobot.store') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
                                     <label for="nama">Kode</label>
                                     <div class="input-group">
-                                        <input id="nama" type="text" class="form-control" placeholder="Contoh: C1" name="nama" required>
+                                        <input id="nama" type="text" class="form-control" placeholder="Contoh: C1"
+                                            name="nama" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -49,13 +50,15 @@
                                 <div class="form-group">
                                     <label for="bobot">Bobot</label>
                                     <div class="input-group">
-                                        <input id="bobot" type="number" class="form-control" placeholder="Contoh: 0.15" name="bobot" required>
+                                        <input id="bobot" type="number" step="any" class="form-control"
+                                            placeholder="Contoh: 0.15" name="bobot" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Deskripsi</label>
                                     <div class="input-group">
-                                        <input id="description" type="text" class="form-control" placeholder="Contoh: Absensi" name="description" required>
+                                        <input id="description" type="text" class="form-control"
+                                            placeholder="Contoh: Absensi" name="description" required>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Kirim</button>
