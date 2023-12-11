@@ -53,8 +53,9 @@
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__wobble" src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
-            height="60" width="60">
+        <img class="animation__wobble" src="{{ asset('assets/dist/img/polinema-logo.png') }}" alt="polinemaLogo"
+            height="100" width="100"><br>
+            <h5>Loading...</h5>
     </div>
 
     <!-- Site wrapper -->
