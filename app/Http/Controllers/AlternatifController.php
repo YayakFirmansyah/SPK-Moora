@@ -26,14 +26,14 @@ class AlternatifController extends Controller
             'kriteriabobot.bobot as bobot',
             'kriteriabobot.description as description'
         )
-        ->leftJoin('alternatif', 'alternatif.id', '=', 'alternatifskor.alternatif_id')
-        ->leftJoin('kriteriabobot', 'kriteriabobot.id', '=', 'alternatifskor.kriteriabobot_id')
-        ->get();
+            ->leftJoin('alternatif', 'alternatif.id', '=', 'alternatifskor.alternatif_id')
+            ->leftJoin('kriteriabobot', 'kriteriabobot.id', '=', 'alternatifskor.kriteriabobot_id')
+            ->get();
 
         $alternatif = AlternatifModel::get();
 
         $kriteriabobot = KriteriaBobotModel::get();
-        return view('alternatif.index', compact('scores','alternatif', 'kriteriabobot'))->with('i', 0);
+        return view('alternatif.index', compact('scores', 'alternatif', 'kriteriabobot'))->with('i', 0);
     }
 
     /**
@@ -43,7 +43,7 @@ class AlternatifController extends Controller
      */
     public function create()
     {
-       $kriteriabobot = KriteriaBobotModel::get();
+        $kriteriabobot = KriteriaBobotModel::get();
         return view('alternatif.create', compact('kriteriabobot'));
     }
 
@@ -54,29 +54,31 @@ class AlternatifController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'nama' => 'required'
-    ]);
+    {
+        $request->validate([
+            'nama' => 'required',
+            'score' => 'required|array',
+            'score.*' => 'required|numeric',
+        ]);
 
-    // Menyimpan alternatif
-    $alt = new AlternatifModel;
-    $alt->nama = $request->nama;
-    $alt->save();
+        // Menyimpan alternatif
+        $alt = new AlternatifModel;
+        $alt->nama = $request->nama;
+        $alt->save();
 
-    // Menyimpan skor
-    $kriteriabobot = KriteriaBobotModel::get();
-    foreach ($kriteriabobot as $k) {
-        $score = new AlternatifSkor();
-        $score->alternatif_id = $alt->id;
-        $score->kriteriabobot_id = $k->id;
-        $score->score = 0; // Set a default value, change as needed
-        $score->save();
+        // Menyimpan skor
+        $kriteriabobot = KriteriaBobotModel::get();
+        foreach ($kriteriabobot as $k) {
+            $score = new AlternatifSkor();
+            $score->alternatif_id = $alt->id;
+            $score->kriteriabobot_id = $k->id;
+            $score->score = $request->score[$k->id] ?? 0; // Set a default value, change as needed
+            $score->save();
+        }
+
+        return redirect()->route('alternatif.index')
+            ->with('success', 'Alternatif created successfully.');
     }
-
-    return redirect()->route('alternatif.index')
-                    ->with('success', 'Alternatif created successfully.');
-}
 
 
     /**
@@ -85,7 +87,7 @@ class AlternatifController extends Controller
      * @param  \App\Models\AlternatifModel  $alternatif
      * @return \Illuminate\Http\Response
      */
-    public function show( $alternatif)
+    public function show($alternatif)
     {
         //
     }
@@ -123,9 +125,9 @@ class AlternatifController extends Controller
         ]);
 
         // Menyimpan Skor
-        $kriteribobot = KriteriaBobotModel::get();
+        $kriteriabobot = KriteriaBobotModel::get();
 
-        foreach ($kriteribobot as $k) {
+        foreach ($kriteriabobot as $k) {
             $score = AlternatifSkor::updateOrCreate(
                 [
                     'alternatif_id' => $alternatif->id,
@@ -166,6 +168,6 @@ class AlternatifController extends Controller
         $alternatif->delete();
 
         return redirect()->route('alternatif.index')
-                        ->with('success','alternatif deleted successfully');
+            ->with('success', 'alternatif deleted successfully');
     }
 }
