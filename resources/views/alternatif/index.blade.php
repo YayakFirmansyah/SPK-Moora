@@ -140,7 +140,7 @@
     @endif
     @if ($message = Session::get('error'))
         <script>
-            toastr.success('{{ $message }}')
+            toastr.error('{{ $message }}')
         </script>
     @endif
     <script>

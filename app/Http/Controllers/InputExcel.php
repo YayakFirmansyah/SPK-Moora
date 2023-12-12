@@ -64,6 +64,8 @@ class InputExcel extends Controller
         // Inisialisasi header Excel
         $data = [];
 
+        $data[] = ['(Dalam bentuk text. Contoh: A1, Toko1)', '(Nilai Kriteria C1-Cn dalam bentuk angka decimal. Contoh: 0.5, 1, 2)'];
+
         // Tambahkan header untuk 'Nama Alternatif' ke dalam array data
         $header = ['Nama'];
         foreach ($kriteriaBobot as $kriteria) {
@@ -91,6 +93,7 @@ class InputExcel extends Controller
         $data = Excel::toArray([], $file)[0];
 
         // Remove first and second row from $data
+        array_shift($data);
         array_shift($data);
 
         try {
