@@ -77,7 +77,7 @@ class NormalisasiController extends Controller
 
         // Normalisasi Moora
         foreach ($scores as $skor) {
-            $normalizedScore = round(($akarKuadrat[$skor->idk] != 0) ? $skor->score / $akarKuadrat[$skor->idk] : 0, 2);
+            $normalizedScore = round(($akarKuadrat[$skor->idk] != 0) ? $skor->score / $akarKuadrat[$skor->idk] : 0, 4);
 
             // Menyimpan hasil normalisasi ke dalam array
             $normalizedScores[$skor->ida][$skor->idk] = $normalizedScore;
@@ -110,7 +110,7 @@ class NormalisasiController extends Controller
                         $totalnormTerbobot += $normTerbobotValue;
 
                         // Optionally, you can store the formatted normTerbobot values in an array
-                        $normTerbobotResults[$alternatifId][$kriteriaId] = number_format($normTerbobotValue, 2);
+                        $normTerbobotResults[$alternatifId][$kriteriaId] = number_format($normTerbobotValue, 4);
                     }
                 }
 
@@ -155,8 +155,8 @@ class NormalisasiController extends Controller
             }
 
             // Simpan nilai akhir untuk alternatif saat ini
-            $hitungNilaiAkhir['benefit'][$alternatifId] = number_format($finalValueB, 2);
-            $hitungNilaiAkhir['cost'][$alternatifId] = number_format($finalValueC, 2);
+            $hitungNilaiAkhir['benefit'][$alternatifId] = number_format($finalValueB, 4);
+            $hitungNilaiAkhir['cost'][$alternatifId] = number_format($finalValueC, 4);
         }
     }
 
@@ -174,7 +174,7 @@ public function hitungYi($hitungNilaiAkhir)
             $yiValue = $benefitValue - $hitungNilaiAkhir['cost'][$alternatifId];
 
             // Simpan nilai Yi untuk alternatif saat ini
-            $hitungYi[$alternatifId]['yiValue'] = number_format($yiValue, 2);
+            $hitungYi[$alternatifId]['yiValue'] = number_format($yiValue, 4);
         }
     }
 
