@@ -88,9 +88,16 @@
                     </ul>
                 </li>
             </ul>
-            <div class="m-4">
-                <button type="button" data-target="#resetModal" data-toggle="modal" class="btn btn-danger">Reset Data</button>
-            </div>
+            <ul class="nav nav-pills nav-sidebar flex-column m-2">
+                <li class="nav-item bg-danger rounded">
+                    <a type="button" data-target="#resetModal" data-toggle="modal"  class="nav-link">
+                        <i class="nav-icon fas fa-trash"></i>
+                        <p>
+                            Reset Data
+                        </p>
+                    </a>
+                </li>
+            </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
