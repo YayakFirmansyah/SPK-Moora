@@ -5,6 +5,8 @@ use App\Http\Controllers\DecisionMatrixController;
 use App\Http\Controllers\InputExcel;
 use App\Http\Controllers\KriteriabobotController;
 use App\Http\Controllers\NormalisasiController;
+use App\Models\AlternatifModel;
+use App\Models\KriteriaBobotModel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,3 +42,8 @@ Route::get('/downloadExcelTemplateKriteria', [InputExcel::class, 'downloadExcelT
 
 Route::get('/downloadExcelTemplateAlternatif', [InputExcel::class, 'downloadExcelTemplateAlternatif']);
 Route::post('/uploadExcelAlternatif', [InputExcel::class, 'uploadExcelAlternatif']);
+Route::post('/resetData', function () {
+    AlternatifModel::query()->delete();
+    KriteriaBobotModel::query()->delete();
+    return redirect('/')->with('success', 'Semua data berhasil dihapus');
+});

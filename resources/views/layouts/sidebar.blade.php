@@ -2,15 +2,15 @@
     <!-- Brand Logo -->
     <a href="{{ url('dashboard') }}" class="brand-link">
         <img src="{{ asset('assets/dist/img/polinema-logo.png') }}" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="d-block">SPK-Moora</span>
+             class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text d-block">SPK-Moora</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
 
         <!-- Sidebar Menu -->
-        <nav class="mt-2">
+        <nav class="h-100 d-flex flex-column justify-content-between align-items-center">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 <li class="nav-item">
@@ -88,8 +88,39 @@
                     </ul>
                 </li>
             </ul>
+            <div class="m-4">
+                <button type="button" data-target="#resetModal" data-toggle="modal" class="btn btn-danger">Reset Data</button>
+            </div>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
 </aside>
+
+<!-- Reset Data Modal -->
+<div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModal"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Hapus Semua Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Modal body content here -->
+                <h5>Apakah Anda yakin menghapus semua data?</h5>
+                <p>(semua data yang sudah diinputkan akan hilang)</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                <form action="{{ url('/resetData') }}" method="post">
+                    @csrf
+                    @method('post')
+                    <button type="submit" class="btn btn-danger">Reset Data</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
