@@ -31,11 +31,18 @@ Route::get('/dashboard', function () {
 Route::resources([
     'alternatif' => AlternatifController::class,
     'kriteriabobot' => KriteriabobotController::class,
-    'decisionmatrix' => DecisionMatrixController::class,
 
 ]);
-Route::get('normalization', [NormalisasiController::class, 'index']);
-Route::get('/ranking', [NormalisasiController::class, 'showRanking']);
+
+//make middleware that checking bobot of criteria model for normalization and ranking route
+Route::middleware(['checkBobot'])->group(function () {
+    Route::get('decisionmatrix', [DecisionMatrixController::class, 'index']);
+    Route::get('normalization', [NormalisasiController::class, 'index']);
+    Route::get('/ranking', [NormalisasiController::class, 'showRanking']);
+});
+
+// Route::get('normalization', [NormalisasiController::class, 'index']);
+// Route::get('/ranking', [NormalisasiController::class, 'showRanking']);
 
 Route::post('/uploadExcelKriteria', [InputExcel::class, 'uploadExcelKriteria']);
 Route::get('/downloadExcelTemplateKriteria', [InputExcel::class, 'downloadExcelTemplateKriteria']);

@@ -26,7 +26,8 @@ class KriteriabobotController extends Controller
      */
     public function create()
     {
-        return view('kriteriabobot.create');
+        $sumBobot = KriteriaBobotModel::sum('bobot');
+        return view('kriteriabobot.create')->with('sumBobot', $sumBobot);
     }
 
     /**
@@ -36,31 +37,41 @@ class KriteriabobotController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-{
-    try {
-        $request->validate([
-            'nama' => 'required|unique:kriteriabobot',
-            'tipe' => 'required',
-            'bobot' => 'required',
-            'description' => 'required',
-        ]);
+    {
+        try {
+            $request->validate([
+                'nama' => 'required|unique:kriteriabobot',
+                'tipe' => 'required',
+                'bobot' => 'required',
+                'description' => 'required',
+            ]);
 
-        KriteriaBobotModel::create($request->all());
+            //make variable bobot from request and sum all bobot
+            $bobot = $request->bobot;
+            $bobot += $bobot + KriteriaBobotModel::sum('bobot');
 
-        return redirect()->route('kriteriabobot.index')
-                        ->with('success','Criteria created successfully.');
-    } catch (QueryException $e) {
-        if ($e->errorInfo[1] == 1062) {
-            // Error code 1062 is for duplicate entry
-            return redirect()->back()
-                             ->withInput()
-                             ->withErrors(['nama' => 'Nama kriteria sudah ada.']);
+            if ($bobot > 1) {
+                return redirect()->back()
+                    ->withInput()
+                    ->withErrors(['bobot1' => 'Total bobot tidak boleh lebih dari 1.', 'bobot2' => 'Tolong kurangi bobot dari kriteria lain.']);
+            }
+
+            KriteriaBobotModel::create($request->all());
+
+            return redirect()->route('kriteriabobot.index')
+                ->with('success', 'Criteria created successfully.');
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == 1062) {
+                // Error code 1062 is for duplicate entry
+                return redirect()->back()
+                    ->withInput()
+                    ->withErrors(['nama' => 'Nama kriteria sudah ada.']);
+            }
+            // Handle other query exceptions if needed
+            return redirect()->route('kriteriabobot.index')
+                ->with('error', 'Failed to create criteria.');
         }
-        // Handle other query exceptions if needed
-        return redirect()->route('kriteriabobot.index')
-                        ->with('error','Failed to create criteria.');
     }
-}
 
     /**
      * Display the specified resource.
@@ -81,7 +92,7 @@ class KriteriabobotController extends Controller
      */
     public function edit(KriteriaBobotModel $kriteriabobot)
     {
-        return view('kriteriabobot.edit',compact('kriteriabobot'));
+        return view('kriteriabobot.edit', compact('kriteriabobot'));
     }
 
     /**
@@ -100,10 +111,27 @@ class KriteriabobotController extends Controller
             'description' => 'required',
         ]);
 
+        //mencari bobot dari $kriteriabobot
+        $bobotSebelum = KriteriaBobotModel::where('id', $kriteriabobot->id)->first()->bobot;
+
+        //make variable bobot from request and sum all bobot
+        $bobot = $request->bobot;
+
+        //mengurangi bobot sebelumnya
+        $bobot -= $bobotSebelum;
+
+        $bobot = $bobot + KriteriaBobotModel::sum('bobot');
+
+        if ($bobot > 1) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['bobot1' => 'Total bobot tidak boleh lebih dari 1.', 'bobot2' => 'Tolong kurangi bobot dari kriteria lain.']);
+        }
+
         $kriteriabobot->update($request->all());
 
         return redirect()->route('kriteriabobot.index')
-                        ->with('success','Criteria updated successfully');
+            ->with('success', 'Criteria updated successfully');
     }
 
     /**
@@ -117,6 +145,6 @@ class KriteriabobotController extends Controller
         $kriteriabobot->delete();
 
         return redirect()->route('kriteriabobot.index')
-                        ->with('success','Criteria deleted successfully');
+            ->with('success', 'Criteria deleted successfully');
     }
 }
