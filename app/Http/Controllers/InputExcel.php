@@ -34,6 +34,16 @@ class InputExcel extends Controller
         array_shift($data);
         array_shift($data);
 
+        // Check if all bobot on database + excel file is not more than 1.00
+        $totalBobot = 0;
+        foreach ($data as $row) {
+            $totalBobot += $row[2];
+        }
+        $totalBobot += KriteriaBobotModel::sum('bobot');
+        if ($totalBobot > 1) {
+            return redirect()->back()->with('error', 'Total bobot tidak boleh lebih dari 1.00');
+        }
+
         try {
             foreach ($data as $row) {
                 KriteriaBobotModel::create([
