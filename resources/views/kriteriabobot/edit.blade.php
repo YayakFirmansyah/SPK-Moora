@@ -56,8 +56,10 @@
                                 <div class="form-group">
                                     <label for="bobot">Bobot</label>
                                     <div class="input-group">
-                                        <input id="bobot" type="number" step="any" class="form-control" placeholder="Contoh: 0.15"
-                                            name="bobot" value="{{ $kriteriabobot->bobot }}" required>
+                                        <input id="bobot" type="number" step="any" class="form-control"
+                                            placeholder="Contoh: 0.15" name="bobot" value="{{ $kriteriabobot->bobot }}"
+                                            required>
+                                        <h4 class="ml-2">/ {{ $sumBobot }}</h4>
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -48,9 +48,9 @@ class KriteriabobotController extends Controller
 
             //make variable bobot from request and sum all bobot
             $bobot = $request->bobot;
-            $bobot += $bobot + KriteriaBobotModel::sum('bobot');
-
-            if ($bobot > 1) {
+            $bobot = $bobot + KriteriaBobotModel::sum('bobot');
+            
+            if ($bobot > 1.00) {
                 return redirect()->back()
                     ->withInput()
                     ->withErrors(['bobot1' => 'Total bobot tidak boleh lebih dari 1.', 'bobot2' => 'Tolong kurangi bobot dari kriteria lain.']);
@@ -92,7 +92,8 @@ class KriteriabobotController extends Controller
      */
     public function edit(KriteriaBobotModel $kriteriabobot)
     {
-        return view('kriteriabobot.edit', compact('kriteriabobot'));
+        $sumBobot = KriteriaBobotModel::sum('bobot');
+        return view('kriteriabobot.edit', compact('kriteriabobot'))->with('sumBobot', $sumBobot);
     }
 
     /**
