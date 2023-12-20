@@ -69,11 +69,10 @@ class AlternatifController extends Controller
         // Menyimpan skor
         $kriteriabobot = KriteriaBobotModel::get();
         foreach ($kriteriabobot as $k) {
-            $score = new AlternatifSkor();
-            $score->alternatif_id = $alt->id;
-            $score->kriteriabobot_id = $k->id;
-            $score->score = $request->score[$k->id] ?? 0; // Set a default value, change as needed
-            $score->save();
+            $score = AlternatifSkor::updateOrCreate(
+                ['alternatif_id' => $alt->id, 'kriteriabobot_id' => $k->id],
+                ['score' => $request->score[$k->id] ?? 0] // Set a default value, change as needed
+            );
         }
 
         return redirect()->route('alternatif.index')

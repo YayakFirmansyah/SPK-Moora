@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlternatifModel;
+use App\Models\AlternatifSkor;
 use App\Models\KriteriaBobotModel;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -49,14 +51,23 @@ class KriteriabobotController extends Controller
             //make variable bobot from request and sum all bobot
             $bobot = $request->bobot;
             $bobot = $bobot + KriteriaBobotModel::sum('bobot');
-            
+
             if ($bobot > 1.00) {
                 return redirect()->back()
                     ->withInput()
                     ->withErrors(['bobot1' => 'Total bobot tidak boleh lebih dari 1.', 'bobot2' => 'Tolong kurangi bobot dari kriteria lain.']);
             }
 
-            KriteriaBobotModel::create($request->all());
+            $kriteriabobot = KriteriaBobotModel::create($request->all());
+
+            $alternatif = AlternatifModel::get();
+            foreach ($alternatif as $a) {
+                $score = new AlternatifSkor();
+                $score->alternatif_id = $a->id;
+                $score->kriteriabobot_id = $kriteriabobot->id;
+                $score->score = 0; // Set a default value, change as needed
+                $score->save();
+            }
 
             return redirect()->route('kriteriabobot.index')
                 ->with('success', 'Criteria created successfully.');

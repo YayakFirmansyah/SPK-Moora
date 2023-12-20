@@ -15,15 +15,15 @@ class checkBobot
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {   
-        $bobot = KriteriaBobotModel::sum('bobot');
-
-        if ($bobot < 1 && $bobot > 1) {
-            return redirect()->back()
-                             ->withInput()
-                             ->with('error', 'Total bobot harus 1.');
-        }
+    {
+        $bobot = (string)KriteriaBobotModel::sum('bobot');
         
-        return $next($request);
+        if ($bobot == '1.0') {
+            return $next($request);
+        } else {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Total bobot harus 1.');
+        }
     }
 }
