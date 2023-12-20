@@ -16,9 +16,9 @@ class checkBobot
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $bobot = (string)KriteriaBobotModel::sum('bobot');
-        
-        if ($bobot == '1.0') {
+        $bobotTotal = KriteriaBobotModel::sum('bobot');
+
+        if (abs($bobotTotal - 1.0) < 0.001) {
             return $next($request);
         } else {
             return redirect()->back()
